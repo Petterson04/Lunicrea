@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lunicrea</string>
+    <string name="title_activity_bitacora">Bitacora</string>
+    <string name="title_activity_principal_view">PrincipalView</string>
+    <string name="title_activity_nuevo_nino">NuevoNino</string>
+    <string name="title_activity_infonino">Infonino</string>
+    <string name="title_activity_ninos_registrados">NinosRegistrados</string>
+    <string name="title_activity_agregar_paquetes">AgregarPaquetes</string>
+    <string name="title_activity_login_admin">LoginAdmin</string>
+    <string name="title_activity_admin_view">AdminView</string>
+    <string name="title_activity_visitas">Visitas</string>
+    <string name="title_activity_paquetes">Paquetes</string>
+    <string name="title_activity_consumo_view">ConsumoView</string>
+    <string name="title_activity_agregar_producto">AgregarProducto</string>
+</resources>

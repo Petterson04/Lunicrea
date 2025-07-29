@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Lunicrea"
+        tools:targetApi="31">
+        <activity
+            android:name=".views.AgregarProducto"
+            android:exported="false"
+            android:label="@string/title_activity_agregar_producto"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.ConsumoView"
+            android:exported="false"
+            android:label="@string/title_activity_consumo_view"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.AdminPaquetes"
+            android:exported="false"
+            android:label="@string/title_activity_paquetes"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.RegistroVisitas"
+            android:exported="false"
+            android:label="@string/title_activity_visitas"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.AdminView"
+            android:exported="false"
+            android:label="@string/title_activity_admin_view"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.LoginAdmin"
+            android:exported="false"
+            android:label="@string/title_activity_login_admin"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.AgregarPaquetes"
+            android:exported="false"
+            android:label="@string/title_activity_agregar_paquetes"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.NinosRegistrados"
+            android:exported="false"
+            android:label="@string/title_activity_ninos_registrados"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.Infonino"
+            android:exported="false"
+            android:label="@string/title_activity_infonino"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.NuevoNino"
+            android:exported="false"
+            android:label="@string/title_activity_nuevo_nino"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.PrincipalView"
+            android:exported="true"
+            android:label="@string/title_activity_principal_view"
+            android:theme="@style/Theme.Lunicrea">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.Bitacora"
+            android:exported="false"
+            android:label="@string/title_activity_bitacora"
+            android:theme="@style/Theme.Lunicrea" />
+    </application>
+
+</manifest>
