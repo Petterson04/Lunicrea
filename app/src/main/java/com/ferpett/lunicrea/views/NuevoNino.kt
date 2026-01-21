@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import com.ferpett.lunicrea.Elements.BotonRegresar
 import com.ferpett.lunicrea.Elements.Botones
@@ -56,6 +59,7 @@ fun AgregarNino(){
  var nombreAutorizado by remember { mutableStateOf("")}
  var horasTotales by remember { mutableStateOf("")}
  val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
 
 
     Box(
@@ -63,6 +67,12 @@ fun AgregarNino(){
             .background((RosaClaro))
             .fillMaxSize()
             .fillMaxWidth()
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            }
+
     ){
         SpaceTopBottom(50)
         BotonRegresar()
@@ -72,23 +82,25 @@ fun AgregarNino(){
         {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+
+                ,
                 contentAlignment = Alignment.Center
             ) {
                 Titulo("Formulario para nuevo niño")
             }
-            SpaceTopBottom(75)
-            OutlinedInputs("Nombre del niño", nombre) { nombre = it }
-            SpaceTopBottom(15)
-            OutlinedInputs("Edad del niño",edad){edad=it}
-            SpaceTopBottom(15)
-            OutlinedInputs("Nombre del Padre/Madre",nombrePadre) {nombrePadre=it}
-            SpaceTopBottom(15)
-            OutlinedInputs("Horas Actuales del niño",horasTotales){horasTotales=it}
-            SpaceTopBottom(15)
-            OutlinedInputs("Numero de emergencias",numeroEmergencia){numeroEmergencia=it}
-            SpaceTopBottom(15)
-            OutlinedInputs("Nombre de persona autorizada a recoger",nombreAutorizado){nombreAutorizado=it}
+            SpaceTopBottom(50)
+            OutlinedInputs("Nombre del niño", nombre) { newValue -> if (newValue.all { it.isLetter() || it.isWhitespace() }) nombre = newValue }
+            SpaceTopBottom(10)
+            OutlinedInputs("Edad del niño",edad){edadValue -> if (edadValue.all { it.isDigit() }) edad = edadValue }
+            SpaceTopBottom(10)
+            OutlinedInputs("Nombre del Padre/Madre",nombrePadre) {newValue-> if(newValue.all { it.isLetter()|| it.isWhitespace() }) nombrePadre=newValue}
+            SpaceTopBottom(10)
+            OutlinedInputs("Horas Actuales del niño",horasTotales){horasValue -> if (horasValue.all { it.isDigit() }) horasTotales = horasValue}
+            SpaceTopBottom(10)
+            OutlinedInputs("Numero de emergencias",numeroEmergencia){numeroValue -> if (numeroValue.all { it.isDigit() }) numeroEmergencia = numeroValue}
+            SpaceTopBottom(10)
+            OutlinedInputs("Nombre de persona autorizada a recoger",nombreAutorizado){newValue-> if(newValue.all { it.isLetter()|| it.isWhitespace() }) nombreAutorizado=newValue}
             Botones("Agregar Niño") {
                 if (nombre=="" || edad=="" || nombrePadre=="" || numeroEmergencia=="" || nombreAutorizado==""){
                     Toast.makeText(context,"Favor de rellenar los datos", Toast.LENGTH_SHORT).show()

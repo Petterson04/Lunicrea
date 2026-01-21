@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import com.ferpett.lunicrea.Elements.MiDialogoSimple
 import com.ferpett.lunicrea.Entidad.Visitas
@@ -143,6 +145,7 @@ fun InfoniñoView(
             .background(RosaClaro)
             .fillMaxSize()
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
 
         SpaceTopBottom(50)
@@ -192,7 +195,12 @@ fun InfoniñoView(
                 modifier = Modifier
                     .fillMaxSize()
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
+
+                ,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+
+
 
 
             ){
@@ -200,11 +208,12 @@ fun InfoniñoView(
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
+
                     ) {
                     Titulo("Informacion del niño")
                 }
                 SpaceTopBottom(5)
-                Row{
+
                     TextosInformacion("Nombre:", Color.White)
                     SpaceBetween(2)
                     TextosSimples(nino!!.nombre,Color.White)
@@ -212,17 +221,16 @@ fun InfoniñoView(
                     TextosInformacion("Edad:", Color.White)
                     SpaceBetween(2)
                     TextosSimples(nino!!.edad,Color.White)
-                }
+
                 SpaceTopBottom(5)
-                Row{
+
                     TextosInformacion("Nombre del Padre/Madre:", Color.White)
                     SpaceBetween(2)
                     TextosSimples(nino!!.nombrePadres,Color.White)
-                    SpaceBetween(1)
+                    SpaceBetween(15)
                     TextosInformacion("Numero de emergencia:", Color.White)
                     SpaceBetween(2)
                     TextosSimples(nino!!.numeroEmergencia,Color.White)
-                }
                 SpaceTopBottom(5)
                 TextosInformacion("Personas Autorizadas para recoleccion", Color.White)
                 TextosSimples(nino!!.nombreAutorizado,Color.White)
@@ -237,15 +245,15 @@ fun InfoniñoView(
                 Row {
                     TextosInformacion("Total a pagar de productos", Color.White)
                     SpaceBetween(2)
-                    TextosSimples(totalconsumo.toString(),Color.White)
+                    TextosSimples("$${totalconsumo.toString()}",Color.White)
                     SpaceBetween(2)
-                    TextosInformacion("Total a pagar paquetes", Color.White)
+                    TextosInformacion("Total a pagar paquetes:", Color.White)
                     SpaceBetween(2)
-                    TextosSimples(totalCosto.toString(),Color.White)
+                    TextosSimples("$${totalCosto.toString()}",Color.White)
                     SpaceBetween(2)
-                    TextosInformacion("Total a pagar",Color.White)
+                    TextosInformacion("Total a pagar:",Color.White)
                     SpaceBetween(2)
-                    TextosSimples(totalGeneral.toString(),Color.White)
+                    TextosSimples("$${totalGeneral.toString()}",Color.White)
 
                 }
 
@@ -295,12 +303,14 @@ fun InfoniñoView(
                         mostrarDialogo=true
 
                     }
+                    SpaceBetween(3)
+
+                    Botones("Editar Niño"){
+                        val editar= Intent(context, UpdateNino::class.java)
+                        editar.putExtra("idNino", nino!!.userId)
+                        context.startActivity(editar)
                 }
-                Botones("Editar Niño"){
-                    val editar= Intent(context, UpdateNino::class.java)
-                    editar.putExtra("idNino", nino!!.userId)
-                    context.startActivity(editar)
-                }
+
 
                 Row{
                     //pagar carro
@@ -351,14 +361,8 @@ fun InfoniñoView(
             }
         }
     }
-}
+}}
 
 
 
 
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview4() {
-    InfoniñoView()
-}

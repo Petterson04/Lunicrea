@@ -60,7 +60,7 @@ fun Homeview(){
                     painter = painterResource(id= R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier
-                        .size(300.dp)
+                        .size(500.dp)
 
                 )
             }
