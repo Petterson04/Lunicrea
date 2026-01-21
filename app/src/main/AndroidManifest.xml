@@ -15,6 +15,36 @@
         android:theme="@style/Theme.Lunicrea"
         tools:targetApi="31">
         <activity
+            android:name=".views.UpdateNino"
+            android:exported="false"
+            android:label="@string/title_activity_update_nino"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.AgregaraProductoNiño"
+            android:exported="false"
+            android:label="@string/title_activity_agregara_producto_niño"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.UpdateProduct"
+            android:exported="false"
+            android:label="@string/title_activity_update_product"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.InfoProducto"
+            android:exported="false"
+            android:label="@string/title_activity_info_producto"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.AddProduct"
+            android:exported="false"
+            android:label="@string/title_activity_add_product"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
+            android:name=".views.AdminProductos"
+            android:exported="false"
+            android:label="@string/title_activity_admin_productos"
+            android:theme="@style/Theme.Lunicrea" />
+        <activity
             android:name=".views.AgregarProducto"
             android:exported="false"
             android:label="@string/title_activity_agregar_producto"

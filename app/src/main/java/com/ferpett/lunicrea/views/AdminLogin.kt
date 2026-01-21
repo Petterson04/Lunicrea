@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,6 +50,7 @@ import com.ferpett.lunicrea.Model.Login
 import com.ferpett.lunicrea.ui.theme.LunicreaTheme
 import com.ferpett.lunicrea.R
 import com.ferpett.lunicrea.ui.theme.RosaClaro
+import java.nio.file.WatchEvent
 
 class LoginAdmin : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +63,7 @@ class LoginAdmin : ComponentActivity() {
         }
     }
 }
+
 
 @Composable
 fun LoginAdminview() {
@@ -159,6 +162,7 @@ fun LoginAdminview() {
         }
     }
 }
+
 
 
 @Preview(showBackground = true)

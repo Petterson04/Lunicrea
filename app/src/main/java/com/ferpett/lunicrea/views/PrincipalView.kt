@@ -44,10 +44,12 @@ fun Homeview(){
     Box(
         modifier = Modifier
             .background((RosaClaro))
-            .fillMaxSize()
-            .fillMaxWidth()
+
     ){
-        Column()
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        )
         {
             Box(
                 modifier = Modifier
@@ -58,18 +60,22 @@ fun Homeview(){
                     painter = painterResource(id= R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier
-                        .size(500.dp)
+                        .size(300.dp)
 
                 )
             }
-            SpaceTopBottom(25)
-            Row {
-                SpaceBetween(100)
+            SpaceTopBottom(7)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+
+            ) {
+                SpaceBetween(45)
                     Botones("Bitacora de niños") {
                         val bitacora= Intent(context, Bitacora::class.java)
                         context.startActivity(bitacora)
                     }
-                SpaceBetween(100)
+                SpaceBetween(30)
                 Botones(
                     "Lista de niños",
                     {
@@ -78,6 +84,8 @@ fun Homeview(){
                     }
 
                     )
+                SpaceBetween(150)
+
                 }
             Box(
                 modifier = Modifier
@@ -86,7 +94,7 @@ fun Homeview(){
             ){
 
                 Botones("Administrador") {
-                    val adminlogin= Intent(context, LoginAdmin::class.java)
+                    val adminlogin= Intent(context, LoginAdmin()::class.java)
                     context.startActivity(adminlogin)
                 }
             }

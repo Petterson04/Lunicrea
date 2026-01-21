@@ -13,10 +13,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
@@ -29,6 +32,7 @@ import com.ferpett.lunicrea.ui.theme.LunicreaTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -40,6 +44,7 @@ import com.ferpett.lunicrea.Elements.SpaceTopBottom
 import com.ferpett.lunicrea.Elements.TextosInformacion
 import com.ferpett.lunicrea.Elements.TextosSimples
 import com.ferpett.lunicrea.Elements.Titulo
+import com.ferpett.lunicrea.R
 import com.ferpett.lunicrea.ui.theme.RosaClaro
 import com.ferpett.lunicrea.ui.theme.Terracota
 import java.text.SimpleDateFormat
@@ -85,7 +90,21 @@ fun BitacoraView(viewModel: NinoViewModel= viewModel()){
                 .padding(16.dp)
         ) {
             SpaceTopBottom(15)
-            BotonRegresar()
+        IconButton(
+            onClick = {
+                val homeView = Intent(context, PrincipalView::class.java)
+                context.startActivity(homeView)
+            },
+            modifier = Modifier
+                .size(100.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.outline_arrow_back_24), // Usa el ícono que tengas
+                contentDescription = "Regresar",
+                modifier= Modifier.size(75.dp)
+
+            )
+        }
             SpaceTopBottom(25)
 
             Column(

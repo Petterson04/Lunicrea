@@ -73,7 +73,8 @@ fun Botones(
 }
 
 @Composable
-fun BotonRegresar(modifier: Modifier = Modifier) {
+fun BotonRegresar(modifier: Modifier = Modifier,
+                  ) {
     val context = LocalContext.current
 
     IconButton(
@@ -83,7 +84,7 @@ fun BotonRegresar(modifier: Modifier = Modifier) {
             }
         },
         modifier = modifier
-            .size(100.dp)
+            .size(50.dp)
     ) {
         Icon(
             painter = painterResource(id = R.drawable.outline_arrow_back_24), // Usa el ícono que tengas

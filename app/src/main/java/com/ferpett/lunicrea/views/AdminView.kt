@@ -69,18 +69,22 @@ fun AdminPrincipalView() {
             }
             SpaceTopBottom(25)
             Row {
-                SpaceBetween(100)
                 Botones("Registro de visitas") {
                     val bitacora= Intent(context, RegistroVisitas::class.java)
                     context.startActivity(bitacora)
                 }
-                SpaceBetween(100)
+                SpaceBetween(5)
+                Botones("Productos"){
+                    val productos= Intent(context, AdminProductos::class.java)
+                    context.startActivity(productos)
+                }
                 Botones(
-                    "Registro de paquetes vendidos",
+                    "Registro de ventas",
+                    onClickAction =
                     {
                         val ninosRegistrados = Intent(context, AdminPaquetes::class.java)
                         context.startActivity(ninosRegistrados)
-                    }
+                    },
 
                 )
             }

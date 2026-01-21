@@ -174,7 +174,8 @@ fun AgregarPaquetesView() {
                             fecha = dia,
                             total = seleccion.costo,
                             nombrePaquete = seleccion.nombre,
-                            nombreNino = nino!!.nombre
+                            nombreNino = nino!!.nombre,
+                            categoria = "Paquete"
                         )
 
                         ninoViewModel.actualizarNino(id, ninos)

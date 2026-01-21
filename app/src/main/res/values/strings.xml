@@ -12,4 +12,10 @@
     <string name="title_activity_paquetes">Paquetes</string>
     <string name="title_activity_consumo_view">ConsumoView</string>
     <string name="title_activity_agregar_producto">AgregarProducto</string>
+    <string name="title_activity_admin_productos">AdminProductos</string>
+    <string name="title_activity_add_product">AddProduct</string>
+    <string name="title_activity_info_producto">InfoProducto</string>
+    <string name="title_activity_update_product">UpdateProduct</string>
+    <string name="title_activity_agregara_producto_niño">AgregaraProductoNiño</string>
+    <string name="title_activity_update_nino">UpdateNino</string>
 </resources>

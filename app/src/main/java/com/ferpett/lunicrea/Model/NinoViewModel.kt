@@ -23,6 +23,7 @@ class NinoViewModel: ViewModel() {
     private var Lista_ninos= MutableStateFlow<List<Nino>>(emptyList())
     val listninos= Lista_ninos.asStateFlow()
 
+
     private val ListaActivos = MutableStateFlow<List<Nino>>(emptyList())
     val ninosActivos: StateFlow<List<Nino>> = ListaActivos.asStateFlow()
 
@@ -175,9 +176,10 @@ class NinoViewModel: ViewModel() {
 
             val ahora         = Timestamp.now()
             val minutosUsados = ((ahora.seconds - horaEntrada.seconds) / 60).toLong()
-            val nuevosMinutos = (minutosDisponibles - minutosUsados)
-
-
+            var nuevosMinutos = (minutosDisponibles - minutosUsados)
+            if(nuevosMinutos>=-15 && nuevosMinutos<=0){
+                nuevosMinutos=0
+            }
             tx.update(ref, mapOf(
                 "estado"             to false,
                 "horaSalida"         to ahora,
