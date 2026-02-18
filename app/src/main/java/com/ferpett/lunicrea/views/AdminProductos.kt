@@ -161,10 +161,16 @@ fun AdminProductosView() {
                     }
                 }
             }
+            Row{
+                Botones("Agregar un nuevo producto") {
+                    val intent = Intent(context, AgregarProducto::class.java)
+                    context.startActivity(intent)
+                }
+                Botones("Menu Principal") {
+                val menu= Intent(context, AdminView::class.java)
+                context.startActivity(menu)
+                }
 
-            Botones("Agregar un nuevo producto") {
-                val intent = Intent(context, AgregarProducto::class.java)
-                context.startActivity(intent)
             }
 
 

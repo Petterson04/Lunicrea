@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -92,26 +93,30 @@ fun AgregarProductosView() {
             SpaceTopBottom(15)
             CategoriaSelector(selectedCategoria = categoria){categoria=it}
             SpaceTopBottom(15)
-            Botones("Agregar Producto") {
-                if (nombreProducto=="" || cantidad=="" || precio=="" ){
-                    Toast.makeText(context,"Favor de rellenar los datos", Toast.LENGTH_SHORT).show()
-                }else{
-                    val producto= Producto(
-                        categoria = categoria,
-                        cantidad = cantidad.toInt(),
-                        precio = precio.toDouble(),
-                        nombreProducto = nombreProducto,
-                    )
-                    viewMode.agregarProductos(producto)
-                    Toast.makeText(context,"Producto registrado con exito", Toast.LENGTH_LONG).show()
-                    val intent = Intent(context, AdminProductos::class.java)
-                    context.startActivity(intent)
+
+            Row{
+                Botones("Agregar Producto") {
+                    if (nombreProducto=="" || cantidad=="" || precio=="" ){
+                        Toast.makeText(context,"Favor de rellenar los datos", Toast.LENGTH_SHORT).show()
+                    }else{
+                        val producto= Producto(
+                            categoria = categoria,
+                            cantidad = cantidad.toInt(),
+                            precio = precio.toDouble(),
+                            nombreProducto = nombreProducto,
+                        )
+                        viewMode.agregarProductos(producto)
+                        Toast.makeText(context,"Producto registrado con exito", Toast.LENGTH_LONG).show()
+                        val intent = Intent(context, AdminProductos::class.java)
+                        context.startActivity(intent)
+                    }
+                }
+                Botones("Menu Principal"){
+                    val menu= Intent(context, AdminView::class.java)
+                    context.startActivity(menu)
                 }
             }
-            Botones("Menu Principal"){
-                val menu= Intent(context, AdminView::class.java)
-                context.startActivity(menu)
-            }
+
         }
     }
 }

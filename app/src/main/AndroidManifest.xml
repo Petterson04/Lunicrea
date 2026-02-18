@@ -35,11 +35,6 @@
             android:label="@string/title_activity_info_producto"
             android:theme="@style/Theme.Lunicrea" />
         <activity
-            android:name=".views.AddProduct"
-            android:exported="false"
-            android:label="@string/title_activity_add_product"
-            android:theme="@style/Theme.Lunicrea" />
-        <activity
             android:name=".views.AdminProductos"
             android:exported="false"
             android:label="@string/title_activity_admin_productos"
@@ -49,11 +44,7 @@
             android:exported="false"
             android:label="@string/title_activity_agregar_producto"
             android:theme="@style/Theme.Lunicrea" />
-        <activity
-            android:name=".views.ConsumoView"
-            android:exported="false"
-            android:label="@string/title_activity_consumo_view"
-            android:theme="@style/Theme.Lunicrea" />
+
         <activity
             android:name=".views.AdminPaquetes"
             android:exported="false"
@@ -97,7 +88,7 @@
         <activity
             android:name=".views.PrincipalView"
             android:exported="true"
-            android:label="@string/title_activity_principal_view"
+            android:label="Lunicrea"
             android:theme="@style/Theme.Lunicrea">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

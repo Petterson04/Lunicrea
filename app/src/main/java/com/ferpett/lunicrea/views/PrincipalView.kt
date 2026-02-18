@@ -60,7 +60,7 @@ fun Homeview(){
                     painter = painterResource(id= R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier
-                        .size(500.dp)
+                        .size(300.dp)
 
                 )
             }
@@ -75,7 +75,7 @@ fun Homeview(){
                         val bitacora= Intent(context, Bitacora::class.java)
                         context.startActivity(bitacora)
                     }
-                SpaceBetween(30)
+                SpaceBetween(45)
                 Botones(
                     "Lista de niños",
                     {

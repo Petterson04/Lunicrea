@@ -251,11 +251,10 @@ fun InfoniñoView(
                     SpaceBetween(2)
                     TextosSimples("$${totalCosto.toString()}",Color.White)
                     SpaceBetween(2)
-                    TextosInformacion("Total a pagar:",Color.White)
-                    SpaceBetween(2)
-                    TextosSimples("$${totalGeneral.toString()}",Color.White)
-
                 }
+                TextosInformacion("Total a pagar:",Color.White)
+                SpaceBetween(2)
+                TextosSimples("$${totalGeneral.toString()}",Color.White)
 
 
                 TextosInformacion("Dia de la ultima visita", Terracota)
@@ -287,32 +286,28 @@ fun InfoniñoView(
                         productos.putExtra("idNino", nino!!.userId)
                         context.startActivity(productos)
                     }
-
-                }
-                Row(
-                    
-                ) {
                     Botones(
-                        if (nino!!.estado==false){
+                        if (nino!!.estado == false) {
                             "Entrada"
-                        }else{
+                        } else {
                             "Salida"
                         }
 
                     ) {
-                        mostrarDialogo=true
+                        mostrarDialogo = true
 
                     }
-                    SpaceBetween(3)
 
-                    Botones("Editar Niño"){
-                        val editar= Intent(context, UpdateNino::class.java)
-                        editar.putExtra("idNino", nino!!.userId)
-                        context.startActivity(editar)
                 }
 
 
+
                 Row{
+                    Botones("Editar Niño") {
+                        val editar = Intent(context, UpdateNino::class.java)
+                        editar.putExtra("idNino", nino!!.userId)
+                        context.startActivity(editar)
+                    }
                     //pagar carro
                     Botones("Pagar carrito"){
                         dialogoPago=true
@@ -321,7 +316,10 @@ fun InfoniñoView(
                         val menu= Intent(context, PrincipalView::class.java)
                         context.startActivity(menu)
                     }
+
                 }
+                SpaceTopBottom(50)
+
                 //Dialogo de entrada/salida
                 MiDialogoSimple(
                     mostrarDialogo = mostrarDialogo,{mostrarDialogo=false},{
@@ -361,7 +359,7 @@ fun InfoniñoView(
             }
         }
     }
-}}
+}
 
 
 

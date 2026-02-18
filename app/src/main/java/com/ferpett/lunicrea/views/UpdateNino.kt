@@ -12,10 +12,13 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -105,6 +108,7 @@ nino?.let {
                     focusManager.clearFocus()
                 })
             }
+            .verticalScroll(rememberScrollState())
     ) {
         SpaceTopBottom(50)
         BotonRegresar()
@@ -136,31 +140,39 @@ nino?.let {
                 "Nombre de persona autorizada a recoger",
                 nombreAutorizado
             ) { nombreAutorizado = it }
-            Botones("Modificar Nino") {
-                if (nombre == "" || edad == "" || nombrePadre == "" || numeroEmergencia == "" || nombreAutorizado == "") {
-                    Toast.makeText(context, "Favor de rellenar los datos", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    val minutos = horasTotales.toIntOrNull()?.times(60) ?: 0
-                    val ninos = Nino(
-                        nombre = nombre,
-                        edad = edad,
-                        nombrePadres = nombrePadre,
-                        numeroEmergencia = numeroEmergencia,
-                        nombreAutorizado = nombreAutorizado,
-                        horasTotales = minutos,
-                        estado = false,
-                        userId = ninoId
-                    )
-                    viewModel.actualizarNino(ninoId,ninos)
-                    Toast.makeText(context, "Niño Actualizado con exito", Toast.LENGTH_LONG).show()
-                    val intent = Intent(context, NinosRegistrados::class.java)
-                    context.startActivity(intent)
+
+            Row(
+
+            ) {
+
+
+                Botones("Modificar Nino") {
+                    if (nombre == "" || edad == "" || nombrePadre == "" || numeroEmergencia == "" || nombreAutorizado == "") {
+                        Toast.makeText(context, "Favor de rellenar los datos", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        val minutos = horasTotales.toIntOrNull()?.times(60) ?: 0
+                        val ninos = Nino(
+                            nombre = nombre,
+                            edad = edad,
+                            nombrePadres = nombrePadre,
+                            numeroEmergencia = numeroEmergencia,
+                            nombreAutorizado = nombreAutorizado,
+                            horasTotales = minutos,
+                            estado = false,
+                            userId = ninoId
+                        )
+                        viewModel.actualizarNino(ninoId, ninos)
+                        Toast.makeText(context, "Niño Actualizado con exito", Toast.LENGTH_LONG)
+                            .show()
+                        val intent = Intent(context, NinosRegistrados::class.java)
+                        context.startActivity(intent)
+                    }
                 }
-            }
-            Botones("Menu Principal") {
-                val menu = Intent(context, PrincipalView::class.java)
-                context.startActivity(menu)
+                Botones("Menu Principal") {
+                    val menu = Intent(context, PrincipalView::class.java)
+                    context.startActivity(menu)
+                }
             }
         }
     }

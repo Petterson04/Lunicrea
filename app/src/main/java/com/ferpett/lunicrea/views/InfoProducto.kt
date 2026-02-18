@@ -13,8 +13,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -79,7 +82,9 @@ fun InfoProductoView() {
         modifier = Modifier
             .background(RosaClaro)
             .fillMaxSize()
+            .fillMaxWidth()
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
 
         SpaceTopBottom(50)
@@ -147,6 +152,7 @@ fun InfoProductoView() {
                             context.startActivity(edit)
                         }
                     }
+                    SpaceTopBottom(40)
                 }
         }
     }

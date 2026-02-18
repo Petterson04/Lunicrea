@@ -174,7 +174,7 @@ fun BitacoraView(viewModel: NinoViewModel = viewModel()) {
                         Intent(context, PrincipalView::class.java)
                     )
                 }
-                SpaceTopBottom(30)
+                SpaceTopBottom(50)
             }
         }
     }

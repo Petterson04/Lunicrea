@@ -57,7 +57,7 @@ fun Botones(
         modifier = Modifier
             .padding(15.dp)
             .border(2.dp, Color.Transparent, RoundedCornerShape(12.dp))
-            .width(450.dp),
+            .width(275.dp),
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = VerdePastel,
             contentColor = Terracota
