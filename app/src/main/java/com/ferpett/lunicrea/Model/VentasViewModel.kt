@@ -62,6 +62,10 @@ class VentasViewModel: ViewModel() {
     private val _conteoPaquetesSemana = MutableLiveData<Map<String, Int>>()
     val conteoPaquetesSemana: LiveData<Map<String, Int>> = _conteoPaquetesSemana
 
+    private val _conteoPaquetesNombre = MutableLiveData<Map<String, Int>>()
+
+    val conteoPaquetesNombre: LiveData<Map<String, Int>> = _conteoPaquetesNombre
+
     fun agregarVenta(ventas: Ventas){
         viewModelScope.launch(Dispatchers.IO) {
             ventas.ventaId= UUID.randomUUID().toString()
@@ -94,7 +98,7 @@ class VentasViewModel: ViewModel() {
                             val fecha = document.getTimestamp("fecha")
                             val venta: Double = document.getDouble("total") ?: 0.0
                             val ventaProducto= document.getDouble("productosTotal")?:0.0
-                            val nombrePaquete = document.getString("nombrePaquete") ?: ""
+
                             val nombreNino = document.getString("nombreNino") ?: ""
                             val categoria= document.getString("categoria") ?:""
 
@@ -104,7 +108,6 @@ class VentasViewModel: ViewModel() {
                                     fecha = fecha,
                                     total = venta,
                                     productosTotal = ventaProducto,
-                                    nombrePaquete = nombrePaquete,
                                     nombreNino = nombreNino,
                                     categoria = categoria
                                 )
@@ -162,7 +165,7 @@ class VentasViewModel: ViewModel() {
             try {
                 val zona = ZoneId.of("America/Mexico_City")
                 val inicioDelDia = Timestamp(Date.from(fecha.atStartOfDay(zona).toInstant()))
-                val finDelDia = Timestamp(Date.from(fecha.plusDays(7).atStartOfDay(zona).toInstant()))
+                val finDelDia = Timestamp(Date.from(fecha.plusDays(5).atStartOfDay(zona).toInstant()))
 
                 db.collection("Ventas")
                     .whereGreaterThanOrEqualTo("fecha", inicioDelDia)
@@ -175,12 +178,13 @@ class VentasViewModel: ViewModel() {
                         val totalGeneral= totalProductosSemana + totalSemana
                         val conteoPaquetes= mutableMapOf<String, Int>()
 
+
                         for (document in result) {
                             val ventaId = document.getString("ventaId") ?: ""
                             val fecha = document.getTimestamp("fecha")
                             val venta: Double = document.getDouble("total") ?: 0.0
                             val ventaProducto= document.getDouble("productosTotal")?:0.0
-                            val nombrePaquete = document.getString("nombrePaquete") ?: ""
+
                             val nombreNino = document.getString("nombreNino") ?: ""
                             val categoria= document.getString("categoria") ?:""
 
@@ -190,7 +194,7 @@ class VentasViewModel: ViewModel() {
                                     fecha = fecha,
                                     total = venta,
                                     productosTotal = ventaProducto,
-                                    nombrePaquete = nombrePaquete,
+
                                     nombreNino = nombreNino,
                                     categoria = categoria
                                 )
@@ -206,6 +210,8 @@ class VentasViewModel: ViewModel() {
                         _listaVentasSemana.value = lista
                         _totalVentasSemana.value = totalSemana
                         _conteoPaquetesSemana.value=conteoPaquetes
+
+
                     }
                     .addOnFailureListener { e ->
                         Log.e("Firestore", "Error al obtener ventas", e)
