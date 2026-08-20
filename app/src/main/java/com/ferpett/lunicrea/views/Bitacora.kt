@@ -151,7 +151,7 @@ fun BitacoraView(viewModel: NinoViewModel = viewModel()) {
                         SpaceBetween(8)
                         TextosSimples(nino.nombre, Color.White)
 
-                        SpaceBetween(16)
+                        SpaceBetween(50)
 
                         TextosInformacion("Entrada:", Color.White)
                         SpaceBetween(8)
@@ -174,7 +174,7 @@ fun BitacoraView(viewModel: NinoViewModel = viewModel()) {
                         Intent(context, PrincipalView::class.java)
                     )
                 }
-                SpaceTopBottom(50)
+                SpaceTopBottom(100)
             }
         }
     }

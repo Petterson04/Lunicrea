@@ -8,12 +8,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import com.ferpett.lunicrea.Elements.*
 import com.ferpett.lunicrea.Entidad.Producto
@@ -50,6 +55,7 @@ fun ActualizarProductoView(productoId: String) {
     var cantidad by remember { mutableStateOf("") }
     var precio by remember { mutableStateOf("") }
     var categoria by remember { mutableStateOf("Bebidas") }
+val focusManager= LocalFocusManager.current
 
     // Cargar una sola vez
     LaunchedEffect(Unit) {
@@ -74,6 +80,18 @@ fun ActualizarProductoView(productoId: String) {
         ) {
             SpaceTopBottom(50)
             BotonRegresar()
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            focusManager.clearFocus()
+                        })
+                    }
+                    .verticalScroll(rememberScrollState())
+
+            ){
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
@@ -110,6 +128,7 @@ fun ActualizarProductoView(productoId: String) {
                     }
                 }
             }
+        }
         }
     } ?: run {
         // Mientras se carga el producto

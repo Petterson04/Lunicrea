@@ -12,6 +12,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
@@ -101,41 +102,46 @@ fun AgregarNino(){
             SpaceTopBottom(10)
             OutlinedInputs("Nombre del Padre/Madre",nombrePadre) {newValue-> if(newValue.all { it.isLetter()|| it.isWhitespace() }) nombrePadre=newValue}
             SpaceTopBottom(10)
-            OutlinedInputs("Horas Actuales del niño",horasTotales){horasValue -> if (horasValue.all { it.isDigit() }) horasTotales = horasValue}
-            SpaceTopBottom(10)
             OutlinedInputs("Numero de emergencias",numeroEmergencia){numeroValue -> if (numeroValue.all { it.isDigit() }) numeroEmergencia = numeroValue}
             SpaceTopBottom(10)
-            OutlinedInputs("Nombre de persona autorizada a recoger",nombreAutorizado){newValue-> if(newValue.all { it.isLetter()|| it.isWhitespace() }) nombreAutorizado=newValue}
-            Botones("Agregar Niño") {
-                if (nombre=="" || edad=="" || nombrePadre=="" || numeroEmergencia=="" || nombreAutorizado==""){
-                    Toast.makeText(context,"Favor de rellenar los datos", Toast.LENGTH_SHORT).show()
-                }else{
-                    val minutos = horasTotales.toIntOrNull()?.times(60) ?: 0
-                    val ninos = Nino(
-                        nombre = nombre,
-                        edad = edad,
-                        nombrePadres = nombrePadre,
-                        numeroEmergencia = numeroEmergencia,
-                        nombreAutorizado = nombreAutorizado,
-                        horasTotales = minutos,
-                        estado = false,
-                    )
-                viewMode.agregarNino(ninos)
-                Toast.makeText(context,"Niño registrado con exito", Toast.LENGTH_LONG).show()
-                nombre=""
-                edad=""
-                nombrePadre=""
-                numeroEmergencia=""
-                nombreAutorizado=""
-                horasTotales=""
-                 val intent = Intent(context, NinosRegistrados::class.java)
-                 context.startActivity(intent)
+            OutlinedInputs("Nombre de persona autorizada a recoger",nombreAutorizado){newValue-> if(newValue.all { it.isLetter()|| it.isWhitespace()  }) nombreAutorizado=newValue}
+            Row {
+
+
+                Botones("Agregar Niño") {
+                    if (nombre == "" || edad == "" || nombrePadre == "" || numeroEmergencia == "" || nombreAutorizado == "") {
+                        Toast.makeText(context, "Favor de rellenar los datos", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        val minutos = horasTotales.toIntOrNull()?.times(60) ?: 0
+                        val ninos = Nino(
+                            nombre = nombre,
+                            edad = edad,
+                            nombrePadres = nombrePadre,
+                            numeroEmergencia = numeroEmergencia,
+                            nombreAutorizado = nombreAutorizado,
+                            horasTotales = 0,
+                            estado = false,
+                        )
+                        viewMode.agregarNino(ninos)
+                        Toast.makeText(context, "Niño registrado con exito", Toast.LENGTH_LONG)
+                            .show()
+                        nombre = ""
+                        edad = ""
+                        nombrePadre = ""
+                        numeroEmergencia = ""
+                        nombreAutorizado = ""
+                        horasTotales = ""
+                        val intent = Intent(context, NinosRegistrados::class.java)
+                        context.startActivity(intent)
+                    }
+                }
+                Botones("Menu Principal") {
+                    val menu = Intent(context, PrincipalView::class.java)
+                    context.startActivity(menu)
+                }
             }
-            }
-            Botones("Menu Principal"){
-                val menu= Intent(context, PrincipalView::class.java)
-                context.startActivity(menu)
-            }
+            SpaceTopBottom(50)
         }
     }
 

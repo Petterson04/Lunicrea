@@ -81,6 +81,7 @@ fun AdminPaquetesView() {
 
     val paquetesSemana by viewModel.conteoPaquetesSemana.observeAsState()
 
+
     val totalProductos by viewModel.totalProductos.observeAsState(0.0)
 
     val totalCostoSemana by viewModel.totalVentasSemana.observeAsState(0.0)
@@ -123,7 +124,7 @@ fun AdminPaquetesView() {
                     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                     val fechaLocalDate = LocalDate.parse(nuevaFecha, formatter)
 
-                    val finRango = fechaLocalDate.plusDays(7)
+                    val finRango = fechaLocalDate.plusDays(5)
 
                     // Formatear para mostrar
                     val inicioStr = fechaLocalDate.format(formatter)
@@ -214,8 +215,9 @@ fun AdminPaquetesView() {
                                 Row {
                                     TextosSimples("$nombrePaquete:", Color.White)
                                     SpaceBetween(10)
-                                    TextosSimples("$cantidad veces", Color.White)
+                                    TextosSimples("$cantidad", Color.White)
                                 }
+
                             }
                         }
                     }

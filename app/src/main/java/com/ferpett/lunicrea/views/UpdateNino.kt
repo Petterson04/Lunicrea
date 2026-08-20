@@ -125,7 +125,7 @@ nino?.let {
             ) {
                 Titulo("Formulario para modificar niño")
             }
-            SpaceTopBottom(75)
+            SpaceTopBottom(25)
             OutlinedInputs("Nombre del niño", nombre) { newValue -> if (newValue.all { it.isLetter() || it.isWhitespace() }) nombre = newValue }
             SpaceTopBottom(15)
             OutlinedInputs("Edad del niño", edad) { newValue -> if (newValue.all { it.isDigit() }) edad = newValue }
@@ -146,7 +146,7 @@ nino?.let {
             ) {
 
 
-                Botones("Modificar Nino") {
+                Botones("Guardar Cambios") {
                     if (nombre == "" || edad == "" || nombrePadre == "" || numeroEmergencia == "" || nombreAutorizado == "") {
                         Toast.makeText(context, "Favor de rellenar los datos", Toast.LENGTH_SHORT)
                             .show()
@@ -174,6 +174,7 @@ nino?.let {
                     context.startActivity(menu)
                 }
             }
+            SpaceTopBottom(50)
         }
     }
 }?: run {

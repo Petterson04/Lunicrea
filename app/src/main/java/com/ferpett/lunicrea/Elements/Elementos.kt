@@ -104,7 +104,7 @@ fun TextosSimples(text: String?, color: Color)
             color = color,
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
-            fontSize = 27.sp
+            fontSize = 30.sp
         )
     }
 }

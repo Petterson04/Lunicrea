@@ -98,7 +98,8 @@ fun AgregarPaquetesView() {
                 val opciones = listOf(
                     Paquete(100.00, 60, "Paquete 1 Hora", nino!!.userId,"1",nino!!.nombre),
                     Paquete(70.0, 30, "Paquete 30 Minutos",nino!!.userId,"2",nino!!.nombre),
-
+                    Paquete( 380.0, 240, "consejo Tecnico", nino!!.userId,"3",nino!!.nombre),
+                    Paquete(750.0, 1080, "Paquete Semanal", nino!!.userId,"4",nino!!.nombre ),
                 )
                 var seleccion by remember { mutableStateOf(opciones[0]) }
                 // SOLO cuando nino no es null se muestra la interfaz
@@ -160,22 +161,25 @@ fun AgregarPaquetesView() {
                     Botones("Agregar Paquete") {
                         val horas_actuales = nino!!.horasTotales
                         val nuevas_horas = horas_actuales + seleccion.duracion
+
+                    val tiempoFinal = if (nuevas_horas < 0 && nuevas_horas >= -15) {0} else{
+                        nuevas_horas
+                    }
                         val ninos = Nino(
                             nombre = nino!!.nombre,
                             edad = nino!!.edad,
                             nombrePadres = nino!!.nombrePadres,
                             numeroEmergencia = nino!!.numeroEmergencia,
                             nombreAutorizado = nino!!.nombreAutorizado,
-                            horasTotales = nuevas_horas,
+                            horasTotales = tiempoFinal,
                             estado = false,
                             userId = nino!!.userId
                         )
                         val venta= Ventas(
                             fecha = dia,
                             total = seleccion.costo,
-                            nombrePaquete = seleccion.nombre,
                             nombreNino = nino!!.nombre,
-                            categoria = "Paquete"
+                            categoria = seleccion.nombre
                         )
 
                         ninoViewModel.actualizarNino(id, ninos)
