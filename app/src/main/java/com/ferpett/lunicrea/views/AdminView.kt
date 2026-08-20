@@ -69,6 +69,7 @@ fun AdminPrincipalView() {
             }
             SpaceTopBottom(25)
             Row {
+                SpaceBetween(45)
                 Botones("Registro de visitas") {
                     val bitacora= Intent(context, RegistroVisitas::class.java)
                     context.startActivity(bitacora)

@@ -52,7 +52,7 @@ import com.ferpett.lunicrea.ui.theme.RosaClaro
 import com.ferpett.lunicrea.ui.theme.Terracota
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-
+import com.ferpett.lunicrea.Elements.SpaceBetween
 
 
 class NinosRegistrados : ComponentActivity() {
@@ -77,11 +77,12 @@ fun NinosRegistradosView() {
 
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(searchQuery) {
         viewModel.obtenerNinos()
     }
     Box(
         modifier = Modifier
+
             .background((RosaClaro))
             .fillMaxSize()
             .fillMaxWidth()
@@ -105,31 +106,32 @@ fun NinosRegistradosView() {
                     Titulo("Total ${listninos.size} niños")
                 }
             }
-
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                leadingIcon = {
+                    Icon(Icons.Filled.Search, contentDescription = null)
+                },
+                placeholder = { Text("Buscar Niño") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                ,
+                shape = RoundedCornerShape(12.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedContainerColor = Color.White
+                )
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                OutlinedTextField(
-                    value = searchQuery,
-                    onValueChange = { searchQuery = it },
-                    leadingIcon = {
-                        Icon(Icons.Filled.Search, contentDescription = null)
-                    },
-                    placeholder = { Text("Buscar Niño") },
-                    modifier = Modifier
-                        .weight(1f)
-                  ,
-                    shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedContainerColor = Color.White
-                    )
-                )
+
                     Botones("Buscar") {
                         viewModel.buscarNinoContiene(searchQuery.text)
                     }
+                SpaceBetween(150)
                     Botones("Limpiar") {
                         searchQuery= TextFieldValue("")
                         viewModel.buscarNinoContiene(searchQuery.text)
@@ -140,7 +142,7 @@ fun NinosRegistradosView() {
             LazyColumn (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .size(300.dp)
+                    .size(250.dp)
             ){
                 items(mostrarLista){nino->
                     Card(
@@ -172,6 +174,7 @@ fun NinosRegistradosView() {
                 val intent = Intent(context, NuevoNino::class.java)
                 context.startActivity(intent)
             }
+            SpaceTopBottom(70)
 
 
         }//Column
