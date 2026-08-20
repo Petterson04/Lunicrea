@@ -109,7 +109,38 @@ fun InfoniñoView(
     var dialogoPago by remember { mutableStateOf(false) }
     var dialogoBorrar by remember { mutableStateOf(false) }
 
+    //Tiempos
+    val tiempoRestante= nino?.horasTotales
+    val tiempoExcedido = tiempoRestante != null && tiempoRestante < 0
+
     val dia= Timestamp.now()
+
+    fun formatearTiempo(minutos: Int?): String {
+        if (minutos == null) return "Sin tiempo"
+
+        val excedido = minutos < 0
+        val minutosAbsolutos = kotlin.math.abs(minutos)
+
+        val horas = minutosAbsolutos / 60
+        val minutosRestantes = minutosAbsolutos % 60
+
+        val tiempo = when {
+            horas > 0 && minutosRestantes > 0 ->
+                "${horas} hr ${minutosRestantes} min"
+
+            horas > 0 ->
+                "${horas} hr"
+
+            else ->
+                "${minutosRestantes} min"
+        }
+
+        return if (excedido) {
+            "$tiempo excedido"
+        } else {
+            tiempo
+        }
+    }
 
 
     LaunchedEffect(id) {
@@ -150,15 +181,13 @@ fun InfoniñoView(
 
         SpaceTopBottom(50)
         Row {
-
-
             IconButton(
                 onClick = {
                     val homeView = Intent(context, PrincipalView::class.java)
                     context.startActivity(homeView)
                 },
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(85.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.outline_arrow_back_24), // Usa el ícono que tengas
@@ -167,10 +196,12 @@ fun InfoniñoView(
 
                 )
             }
-            SpaceBetween(1000)
+            SpaceBetween(800)
             IconButton(
                 onClick = {
-                   dialogoBorrar=true
+                   dialogoBorrar = true
+
+
                 },
                 modifier = Modifier
                     .size(100.dp)
@@ -204,7 +235,7 @@ fun InfoniñoView(
 
 
             ){
-                SpaceTopBottom(100)
+                SpaceTopBottom(80)
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -212,96 +243,104 @@ fun InfoniñoView(
                     ) {
                     Titulo("Informacion del niño")
                 }
-                SpaceTopBottom(5)
-
-                    TextosInformacion("Nombre:", Color.White)
-                    SpaceBetween(2)
-                    TextosSimples(nino!!.nombre,Color.White)
-                    SpaceBetween(3)
-                    TextosInformacion("Edad:", Color.White)
-                    SpaceBetween(2)
-                    TextosSimples(nino!!.edad,Color.White)
-
-                SpaceTopBottom(5)
-
-                    TextosInformacion("Nombre del Padre/Madre:", Color.White)
-                    SpaceBetween(2)
-                    TextosSimples(nino!!.nombrePadres,Color.White)
-                    SpaceBetween(15)
-                    TextosInformacion("Numero de emergencia:", Color.White)
-                    SpaceBetween(2)
-                    TextosSimples(nino!!.numeroEmergencia,Color.White)
-                SpaceTopBottom(5)
-                TextosInformacion("Personas Autorizadas para recoleccion", Color.White)
-                TextosSimples(nino!!.nombreAutorizado,Color.White)
-                SpaceTopBottom(5)
-                    val tiempoRestante= nino!!.horasTotales
-                    if (tiempoRestante<=-16){
-                        TextosInformacion("exceso de tiempo:   ${tiempoRestante} minutos",Color.Red)
-                    }else{
-                        TextosInformacion("Minutos por usar:   ${tiempoRestante}",Color.White)
-                    }
-                    SpaceTopBottom(15)
-                Row {
-                    TextosInformacion("Total a pagar de productos", Color.White)
-                    SpaceBetween(2)
-                    TextosSimples("$${totalconsumo.toString()}",Color.White)
-                    SpaceBetween(2)
-                    TextosInformacion("Total a pagar paquetes:", Color.White)
-                    SpaceBetween(2)
-                    TextosSimples("$${totalCosto.toString()}",Color.White)
-                    SpaceBetween(2)
-                }
-                TextosInformacion("Total a pagar:",Color.White)
-                SpaceBetween(2)
-                TextosSimples("$${totalGeneral.toString()}",Color.White)
-
-
-                TextosInformacion("Dia de la ultima visita", Terracota)
-                val diaVisita=nino!!.horaSalida?.toDate()
-                val fechaformateada=diaVisita?.let {
-                    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it)
-                }
-                if(nino!!.estado==true){
-                    TextosSimples("Niño en ludoteca",Color.White)
-                }else{
-
-                    if (diaVisita==null){
-                        TextosSimples("No hay fecha de ultima visita",Color.White)
-                    }else{
-                        TextosSimples(fechaformateada.toString(),Color.White)
-                    }
-                }
                 SpaceTopBottom(20)
-                Row {
-                    Botones("Agregar Paquetes") {
-                        val AgregarHora= Intent(context, AgregarPaquetes::class.java)
-                        AgregarHora.putExtra("idNino",nino!!.userId)
-                        context.startActivity(AgregarHora)
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+
+                ) {
+
+                    //Nombre y Edad
+                    Row {
+                        TextosInformacion("Nombre:", Terracota)
+                        SpaceBetween(7)
+                        TextosSimples(nino!!.nombre, Color.White)
+                        SpaceBetween(50)
+                        TextosInformacion("Edad:", Terracota)
+                        SpaceBetween(2)
+                        TextosSimples(nino!!.edad, Color.White)
                     }
-                    SpaceBetween(3)
-                    //Productos
-                    Botones("Agregar Productos") {
-                        val productos = Intent(context, AgregaraProductoNiño::class.java)
-                        productos.putExtra("idNino", nino!!.userId)
-                        context.startActivity(productos)
+                    SpaceTopBottom(5)
+
+                        TextosInformacion("Nombre del Padre/Madre:", Terracota)
+                        SpaceBetween(2)
+                        TextosSimples(nino!!.nombrePadres, Color.White)
+                        SpaceBetween(15)
+                        TextosInformacion("Numero de emergencia:", Terracota)
+                        SpaceBetween(2)
+                        TextosSimples(nino!!.numeroEmergencia, Color.White)
+
+
+                    SpaceTopBottom(5)
+                    TextosInformacion("Personas Autorizadas para recoleccion", Terracota)
+                    TextosSimples(nino!!.nombreAutorizado, Color.White)
+                    SpaceTopBottom(5)
+                    TextosInformacion("Horas totales:", Terracota)
+                    SpaceTopBottom(5)
+                    TextosSimples(formatearTiempo(tiempoRestante), if(tiempoExcedido) Color.Red else Color.White)
+
+                    SpaceTopBottom(15)
+                    Row {
+                        TextosInformacion("Total a pagar de productos", Terracota)
+                        SpaceBetween(2)
+                        TextosSimples("$${totalconsumo.toString()}", Color.White)
+                        SpaceBetween(10)
+                        TextosInformacion("Total a pagar paquetes:", Terracota)
+                        SpaceBetween(2)
+                        TextosSimples("$${totalCosto.toString()}", Color.White)
+                        SpaceBetween(2)
                     }
-                    Botones(
-                        if (nino!!.estado == false) {
-                            "Entrada"
+                    Row {
+                        TextosInformacion("Total a pagar:", Terracota)
+                        SpaceBetween(2)
+                        TextosSimples("$${totalGeneral.toString()}", Color.White)
+                        TextosInformacion("Dia de la ultima visita", Terracota)
+                        val diaVisita = nino!!.horaSalida?.toDate()
+                        val fechaformateada = diaVisita?.let {
+                            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it)
+                        }
+                        if (nino!!.estado == true) {
+                            TextosSimples("Niño en ludoteca", Color.White)
                         } else {
-                            "Salida"
+
+                            if (diaVisita == null) {
+                                TextosSimples("No hay fecha de ultima visita", Color.White)
+                            } else {
+                                TextosSimples(fechaformateada.toString(), Color.White)
+                            }
+                        }
+                    }
+                    SpaceTopBottom(20)
+                    Row {
+                        Botones("Agregar Paquetes") {
+                            val AgregarHora = Intent(context, AgregarPaquetes::class.java)
+                            AgregarHora.putExtra("idNino", nino!!.userId)
+                            context.startActivity(AgregarHora)
+                        }
+                        SpaceBetween(3)
+                        //Productos
+                        Botones("Agregar Productos") {
+                            val productos = Intent(context, AgregaraProductoNiño::class.java)
+                            productos.putExtra("idNino", nino!!.userId)
+                            context.startActivity(productos)
+                        }
+                        Botones(
+                            if (nino!!.estado == false) {
+                                "Entrada"
+                            } else {
+                                "Salida"
+                            }
+
+                        ) {
+                            mostrarDialogo = true
+
                         }
 
-                    ) {
-                        mostrarDialogo = true
-
                     }
-
                 }
 
-
-
+                //Botones de editar y pagar
                 Row{
                     Botones("Editar Niño") {
                         val editar = Intent(context, UpdateNino::class.java)
@@ -351,7 +390,10 @@ fun InfoniñoView(
                 MiDialogoSimple(
                     dialogoBorrar,
                     {dialogoBorrar=false},
-                    {ninoViewModel.borrarNIño(nino!!.userId)
+                    {
+                        ninoViewModel.borrarNIño(nino!!.userId)
+                        val ListaNiño = Intent(context, NinosRegistrados::class.java)
+                        context.startActivity(ListaNiño)
                         dialogoBorrar=false
                     }
                 )

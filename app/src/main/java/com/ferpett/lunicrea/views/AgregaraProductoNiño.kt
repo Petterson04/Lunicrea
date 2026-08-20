@@ -216,7 +216,7 @@ fun Addproduct() {
                             val venta= Ventas(
                                 fecha = dia,
                                 nombreNino = nino?.nombre?:"",
-                                nombrePaquete = producto.nombreProducto,
+
                                 productosTotal = producto.precio,
                                 categoria = producto.categoria
                             )
