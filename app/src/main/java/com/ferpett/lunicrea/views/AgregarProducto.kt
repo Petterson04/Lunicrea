@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -40,6 +43,8 @@ import com.ferpett.lunicrea.Model.NinoViewModel
 import com.ferpett.lunicrea.ui.theme.LunicreaTheme
 import com.ferpett.lunicrea.ui.theme.RosaClaro
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import com.ferpett.lunicrea.Entidad.Producto
 import com.ferpett.lunicrea.Model.ProductoViewModel
 
@@ -63,7 +68,9 @@ fun AgregarProductosView() {
     var precio by remember { mutableStateOf("") }
     var categoria by remember { mutableStateOf("Bebidas") }
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
 
+//bebidas, snacks, , manualidades
 
     Box(
         modifier = Modifier
@@ -79,43 +86,72 @@ fun AgregarProductosView() {
         {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+
+                ,
                 contentAlignment = Alignment.Center
             ) {
                 Titulo("Formulario para nuevo Producto")
             }
-            SpaceTopBottom(75)
-            OutlinedInputs("Nombre del producto", nombreProducto) { nombreProducto = it }
-            SpaceTopBottom(15)
-            OutlinedInputs("Cantidad inicial",cantidad){cantidad=it}
-            SpaceTopBottom(15)
-            OutlinedInputs("Precio",precio) {precio=it}
-            SpaceTopBottom(15)
-            CategoriaSelector(selectedCategoria = categoria){categoria=it}
-            SpaceTopBottom(15)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            focusManager.clearFocus()
+                        })
+                    }
+                    .verticalScroll(rememberScrollState())
 
-            Row{
-                Botones("Agregar Producto") {
-                    if (nombreProducto=="" || cantidad=="" || precio=="" ){
-                        Toast.makeText(context,"Favor de rellenar los datos", Toast.LENGTH_SHORT).show()
-                    }else{
-                        val producto= Producto(
-                            categoria = categoria,
-                            cantidad = cantidad.toInt(),
-                            precio = precio.toDouble(),
-                            nombreProducto = nombreProducto,
-                        )
-                        viewMode.agregarProductos(producto)
-                        Toast.makeText(context,"Producto registrado con exito", Toast.LENGTH_LONG).show()
-                        val intent = Intent(context, AdminProductos::class.java)
-                        context.startActivity(intent)
+            ){
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    SpaceTopBottom(75)
+                    OutlinedInputs("Nombre del producto", nombreProducto) { nombreProducto = it }
+                    SpaceTopBottom(15)
+                    OutlinedInputs("Cantidad inicial", cantidad) { cantidad = it }
+                    SpaceTopBottom(15)
+                    OutlinedInputs("Precio", precio) { precio = it }
+                    SpaceTopBottom(15)
+                    CategoriaSelector(selectedCategoria = categoria) { categoria = it }
+                    SpaceTopBottom(15)
+
+                    Row {
+                        Botones("Agregar Producto") {
+                            if (nombreProducto == "" || cantidad == "" || precio == "") {
+                                Toast.makeText(
+                                    context,
+                                    "Favor de rellenar los datos",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                val producto = Producto(
+                                    categoria = categoria,
+                                    cantidad = cantidad.toInt(),
+                                    precio = precio.toDouble(),
+                                    nombreProducto = nombreProducto,
+                                )
+                                viewMode.agregarProductos(producto)
+                                Toast.makeText(
+                                    context,
+                                    "Producto registrado con exito",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                val intent = Intent(context, AdminProductos::class.java)
+                                context.startActivity(intent)
+                            }
+                        }
+                        Botones("Menu Principal") {
+                            val menu = Intent(context, AdminView::class.java)
+                            context.startActivity(menu)
+                        }
                     }
                 }
-                Botones("Menu Principal"){
-                    val menu= Intent(context, AdminView::class.java)
-                    context.startActivity(menu)
-                }
             }
+            SpaceTopBottom(50)
 
         }
     }
@@ -127,7 +163,7 @@ fun AgregarProductosView() {
         selectedCategoria: String,
         onCategoriaSelected: (String) -> Unit
     ) {
-        val categorias = listOf("Bebidas", "Alimentos", "Consumibles")
+        val categorias = listOf("Bebidas", "Snacks", "Manualidades")
         var expanded by remember { mutableStateOf(false) }
 
         ExposedDropdownMenuBox(

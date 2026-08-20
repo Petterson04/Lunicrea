@@ -7,7 +7,6 @@ data class Ventas(
     val fecha: Timestamp? = Timestamp.now(),
     val total: Double? =0.0,
     val productosTotal: Double?=0.0,
-    val nombrePaquete: String? ="",
     val nombreNino: String? ="",
     val categoria: String?=""
 )

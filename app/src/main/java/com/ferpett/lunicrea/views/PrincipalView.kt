@@ -75,7 +75,7 @@ fun Homeview(){
                         val bitacora= Intent(context, Bitacora::class.java)
                         context.startActivity(bitacora)
                     }
-                SpaceBetween(45)
+                SpaceBetween(150)
                 Botones(
                     "Lista de niños",
                     {
@@ -84,7 +84,7 @@ fun Homeview(){
                     }
 
                     )
-                SpaceBetween(150)
+
 
                 }
             Box(
